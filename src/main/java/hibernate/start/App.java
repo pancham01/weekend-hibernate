@@ -15,8 +15,6 @@ public class App {
 
 	public static void main(String[] args) {
 		Employee ashish = new Employee("Ashish","male",23456); 
-//		Configuration conf = new Configuration().configure("hibernate.cfffg.xml");
-//		SessionFactory sf = conf.buildSessionFactory();
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfffg.xml").build();
 		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
 		SessionFactory sf = meta.buildSessionFactory();
@@ -25,9 +23,6 @@ public class App {
 		Transaction tx = session.beginTransaction();
 		session.persist(ashish);
 		tx.commit();
-		
-//		Employee employee = session.getReference(Employee.class, 9);
-//		System.out.println(employee);
 		
 	}
 
