@@ -3,27 +3,28 @@ package hibernate.start;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
+import hbnLearning.Configuration.HibernateConfiguration;
 import hibernate.entity.Employee;
 
 public class App {
 
 	public static void main(String[] args) {
-		Employee ashish = new Employee("Ashish","male",23456); 
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfffg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-		SessionFactory sf = meta.buildSessionFactory();
-
+		SessionFactory sf = HibernateConfiguration.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		session.persist(ashish);
+		System.out.println("start...........");
+		Employee e = new Employee();
+
+//		Employee e = session.load(Employee.class, 2);
+//		System.out.println(e);
+		e.setName("Mukul");
+		e.setGender("male");
+		e.setSalary(54321);
+		session.persist(e);
 		tx.commit();
-		
+		session.close();
+		sf.close();
 	}
 
 }
